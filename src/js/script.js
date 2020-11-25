@@ -57,7 +57,20 @@
       const thisProduct = this;
       thisProduct.id = id;
       thisProduct.data = data;
+      thisProduct.renderInMenu();
       console.log('New product', thisProduct);
+    }
+    renderInMenu() {
+      const thisProduct = this;
+
+      /* Generate html */
+      const generatedHTML = templates.menuProduct(thisProduct.data);
+      /* Generete DOM element */
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+      /* Find menu container */
+      const menuContainer = document.querySelector(select.containerOf.menu);
+      /* Add element to menu */
+      menuContainer.appendChild(thisProduct.element);
     }
   }
 
