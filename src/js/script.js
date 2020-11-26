@@ -59,10 +59,12 @@
       thisProduct.data = data;
       thisProduct.renderInMenu();
       thisProduct.getElements();
+
+      console.log('New product', thisProduct.id, thisProduct);
+
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
-      console.log('New product', thisProduct);
     }
     renderInMenu() {
       const thisProduct = this;
@@ -120,7 +122,8 @@
     }
     processOrder() {
       const thisProduct = this;
-      console.log('processOrder', thisProduct.id);
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('form', thisProduct.id, formData);
     }
   }
 
