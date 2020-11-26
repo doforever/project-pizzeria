@@ -58,6 +58,7 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
+      thisProduct.initAccordion();
       console.log('New product', thisProduct);
     }
     renderInMenu() {
@@ -71,6 +72,24 @@
       const menuContainer = document.querySelector(select.containerOf.menu);
       /* Add element to menu */
       menuContainer.appendChild(thisProduct.element);
+    }
+    initAccordion() {
+      const thisProduct = this;
+      /* find clickable */
+      const clickableElem = thisProduct.element.querySelector(select.menuProduct.clickable);
+      /* add event listner */
+      clickableElem.addEventListener('click', function(event){
+        /* prevent default */
+        event.preventDefault();
+        /* find active */
+        const activeProduct = document.querySelector(select.all.menuProductsActive);
+        /* if it's not this element remove active */
+        if (activeProduct && (!(activeProduct === thisProduct.element))) {
+          activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
+        }
+        /* toggle active on clicked element */
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
+      });
     }
   }
 
