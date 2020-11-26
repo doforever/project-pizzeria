@@ -58,7 +58,10 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
       console.log('New product', thisProduct);
     }
     renderInMenu() {
@@ -73,12 +76,18 @@
       /* Add element to menu */
       menuContainer.appendChild(thisProduct.element);
     }
+    getElements() {
+      const thisProduct = this;
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.element.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+    }
     initAccordion() {
       const thisProduct = this;
-      /* find clickable */
-      const clickableElem = thisProduct.element.querySelector(select.menuProduct.clickable);
       /* add event listner */
-      clickableElem.addEventListener('click', function(event){
+      thisProduct.accordionTrigger.addEventListener('click', function(event){
         /* prevent default */
         event.preventDefault();
         /* find active */
@@ -90,6 +99,14 @@
         /* toggle active on clicked element */
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
       });
+    }
+    initOrderForm() {
+      const thisProduct = this;
+      console.log('initOrderForm', thisProduct.id);
+    }
+    processOrder() {
+      const thisProduct = this;
+      console.log('processOrder', thisProduct.id);
     }
   }
 
