@@ -59,9 +59,6 @@
       thisProduct.data = data;
       thisProduct.renderInMenu();
       thisProduct.getElements();
-
-      console.log('New product', thisProduct.id, thisProduct);
-
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
@@ -122,8 +119,36 @@
     }
     processOrder() {
       const thisProduct = this;
+      console.log('Product data', thisProduct.id, thisProduct.data);
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('form', thisProduct.id, formData);
+
+      /* set price to default */
+      let price = thisProduct.data.price;
+
+      /* for every category */
+      for (let paramId in thisProduct.data.params){
+      /* determine param value */
+        const param = thisProduct.data.params[paramId];
+        /* for every option */
+        for (let optionId in param.options) {
+        /* determine option value */
+          const option = param.options[optionId];
+
+          /* determine if option is checked */
+          let isChecked = formData[paramId].includes(optionId);
+          let isDefault = (option['default'] === true);
+
+          /* determine impact on price */
+          if (isChecked && !isDefault) {
+            price = price + option['price'];
+          } else if (!isChecked && isDefault) {
+            price = price - option['price'];
+          }
+        }
+      }
+      /* udate price */
+      thisProduct.priceElem.innerHTML = price;
     }
   }
 
