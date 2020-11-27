@@ -11,12 +11,13 @@ dataSource.products = {
     ],
   },
   breakfast: {
-    class: 'small',
+    // class: 'small',
     name: 'Zia Giulia\'s Breakfast',
     price: 9,
     description: 'There\'s no better way to start your day than indulging yourself with a cup of fresh Italian coffee and crispy waffels. Made just for you on the spot, this breakfast combo has been our guests\' favorite for over 50 years.',
     images: [
       '<img class="active" src="images/breakfast.svg">',
+      '<img class="coffee-cappuccino" src="images/cappuccino.svg">',
     ],
     params: {
       coffee: {
