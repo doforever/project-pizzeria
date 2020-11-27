@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 257 257"
+   style="enable-background:new 0 0 257 257;"
+   xml:space="preserve"
+   sodipodi:docname="latte.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"><metadata
+   id="metadata359"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title>breakfast</dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs357"><filter
+     inkscape:collect="always"
+     style="color-interpolation-filters:sRGB"
+     id="filter866"
+     x="-0.16909575"
+     width="1.3381915"
+     y="-0.15526302"
+     height="1.310526"><feGaussianBlur
+       inkscape:collect="always"
+       stdDeviation="3.8317728"
+       id="feGaussianBlur868" /></filter></defs><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1600"
+   inkscape:window-height="844"
+   id="namedview355"
+   showgrid="false"
+   inkscape:zoom="2.6342412"
+   inkscape:cx="128.5"
+   inkscape:cy="128.5"
+   inkscape:window-x="0"
+   inkscape:window-y="28"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1"
+   inkscape:document-rotation="0" />
+<style
+   type="text/css"
+   id="style2">
+	.st0{fill:#333333;}
+	.st1{opacity:0.2;}
+	.st2{fill:#534741;}
+	.st3{opacity:0.1;fill:#534741;enable-background:new    ;}
+	.st4{opacity:0.7;fill:#534741;enable-background:new    ;}
+	.st5{opacity:0.5;fill:#534741;enable-background:new    ;}
+	.st6{fill:#F2F4EF;}
+	.st7{fill:#E6EAE1;}
+	.st8{opacity:0.1;}
+	.st9{fill:#D1AA5A;}
+	.st10{fill:#F2CB6B;}
+	.st11{fill:#DDB55B;}
+	.st12{fill:#3F2500;}
+	.st13{opacity:0.5;fill:#BC8F48;enable-background:new    ;}
+</style>
+<title
+   id="title4">breakfast</title>
+
+<path
+   sodipodi:type="spiral"
+   style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:8.8755139;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;fill-opacity:0.49848092;filter:url(#filter866)"
+   id="path1006"
+   sodipodi:cx="183.84248"
+   sodipodi:cy="107.32185"
+   sodipodi:expansion="1"
+   sodipodi:revolution="3"
+   sodipodi:radius="32.298557"
+   sodipodi:argument="-17.648104"
+   sodipodi:t0="0"
+   d="m 183.84248,107.32185 c 0.58461,1.5102 -1.74728,1.53312 -2.51004,0.97166 -2.06702,-1.52152 -1.13836,-4.61989 0.56673,-5.99174 3.05,-2.4539 7.48548,-0.93944 9.47343,2.10511 2.9174,4.468 0.75218,10.39629 -3.64348,12.95513 -5.85873,3.41054 -13.32399,0.57093 -16.43684,-5.18186 -3.9172,-7.23931 -0.393,-16.259924 6.72025,-19.918537 8.6151,-4.431072 19.20055,-0.217045 23.40023,8.258627 4.94919,9.98829 0.0423,22.1441 -9.79701,26.88194 -11.3599,5.47001 -25.0896,-0.13157 -30.36363,-11.3354 -5.99268,-12.7305 0.30488,-28.036481 12.87378,-33.845328 14.1004,-6.516648 30.98436,0.47777 37.32703,14.412156 7.04156,15.469812 -0.65036,33.932982 -15.95054,40.808732"
+   transform="matrix(0.78613099,0.18273196,-0.18042655,0.77621288,58.989967,-9.6424061)"
+   inkscape:transform-center-x="-1.2610461"
+   inkscape:transform-center-y="3.0133532" /></svg>

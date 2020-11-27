@@ -2,7 +2,7 @@ const dataSource = {}; // eslint-disable-line no-unused-vars
 
 dataSource.products = {
   cake: {
-    class: 'small',
+    // class: 'small',
     name: 'Zio Stefano\'s Doughnut',
     price: 9,
     description: 'Treat yourself with this soft, freshly baked cookie. The recipe has been handed down from generation to generation in our family and it has won us several first place prizes in local competitions.',
@@ -16,8 +16,10 @@ dataSource.products = {
     price: 9,
     description: 'There\'s no better way to start your day than indulging yourself with a cup of fresh Italian coffee and crispy waffels. Made just for you on the spot, this breakfast combo has been our guests\' favorite for over 50 years.',
     images: [
-      '<img class="active" src="images/breakfast.svg">',
-      '<img class="coffee-cappuccino" src="images/cappuccino.svg">',
+      '<img class="active" src="images/breakfast/breakfast.svg">',
+      '<img class="coffee-cappuccino" src="images/breakfast/cappuccino.svg">',
+      '<img class="coffee-latte" src="images/breakfast/latte.svg">',
+      '<img class="coffee-macchiato" src="images/breakfast/macchiato.svg">',
     ],
     params: {
       coffee: {
