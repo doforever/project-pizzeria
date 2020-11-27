@@ -82,6 +82,7 @@
       thisProduct.formInputs = thisProduct.element.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
     initAccordion() {
       const thisProduct = this;
@@ -135,9 +136,17 @@
         /* determine option value */
           const option = param.options[optionId];
 
+          /* find image with class .paramId-optionId */
+          const optionImg = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+
           /* determine if option is checked */
           const isChecked = formData[paramId].includes(optionId);
           const isDefault = option.default;
+
+          /* if checked add image to wrapper */
+          if (optionImg) {
+            isChecked ? optionImg.classList.add(classNames.menuProduct.imageVisible) : optionImg.classList.remove(classNames.menuProduct.imageVisible);
+          }
 
           /* determine impact on price */
           if (isChecked && !isDefault) {
