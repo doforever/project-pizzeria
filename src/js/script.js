@@ -136,14 +136,14 @@
           const option = param.options[optionId];
 
           /* determine if option is checked */
-          let isChecked = formData[paramId].includes(optionId);
-          let isDefault = (option['default'] === true);
+          const isChecked = formData[paramId].includes(optionId);
+          const isDefault = option.default;
 
           /* determine impact on price */
           if (isChecked && !isDefault) {
-            price = price + option['price'];
+            price = price + option.price;
           } else if (!isChecked && isDefault) {
-            price = price - option['price'];
+            price = price - option.price;
           }
         }
       }
