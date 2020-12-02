@@ -44,7 +44,7 @@
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
-      defaultMax: 9,
+      defaultMax: 10,
     }
   };
 
@@ -61,6 +61,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     }
     renderInMenu() {
@@ -83,6 +84,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
     initAccordion() {
       const thisProduct = this;
@@ -118,11 +120,18 @@
         thisProduct.processOrder();
       });
     }
+    initAmountWidget(){
+      const thisProduct = this;
+      thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
+      this.amountWidgetElem.addEventListener('updated', () => {
+        this.processOrder();
+      });
+    }
     processOrder() {
       const thisProduct = this;
-      console.log('Product data', thisProduct.id, thisProduct.data);
+      // console.log('Product data', thisProduct.id, thisProduct.data);
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('form', thisProduct.id, formData);
+      // console.log('form', thisProduct.id, formData);
 
       /* set price to default */
       let price = thisProduct.data.price;
@@ -156,8 +165,56 @@
           }
         }
       }
+      /* multiply price by amount */
+      price = price * thisProduct.amountWidget.value;
       /* udate price */
       thisProduct.priceElem.innerHTML = price;
+    }
+  }
+
+  class AmountWidget {
+    constructor(element) {
+      this.getElements(element);
+      this.setValue(this.input.value);
+      this.initActions();
+
+      console.log('Amount wiget', this);
+      console.log('constructor arguments:', element );
+    }
+    getElements(element) {
+
+      this.element = element;
+      this.input = this.element.querySelector(select.widgets.amount.input);
+      this.linkDecrease = this.element.querySelector(select.widgets.amount.linkDecrease);
+      this.linkIncrease = this.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+    setValue(value) {
+      const newValue = parseInt(value);
+
+      /* TODO: add validation */
+      if (this.value!==newValue && !isNaN(newValue)
+      && newValue <= settings.amountWidget.defaultMax && newValue >= settings.amountWidget.defaultMin){
+        this.value = newValue;
+        this.announce();
+      }
+      this.input.value = this.value;
+    }
+    initActions() {
+      this.input.addEventListener('change', () => {
+        this.setValue(this.input.value);
+      });
+      this.linkDecrease.addEventListener('click', event => {
+        event.preventDefault();
+        this.setValue(this.input.value - 1);
+      });
+      this.linkIncrease.addEventListener('click', event => {
+        event.preventDefault();
+        this.setValue(parseInt(this.input.value) + 1);
+      });
+    }
+    announce() {
+      const event = new Event('updated');
+      this.element.dispatchEvent(event);
     }
   }
 
