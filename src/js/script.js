@@ -251,7 +251,17 @@
       this.element.dispatchEvent(event);
     }
   }
-
+  class Cart {
+    constructor(element) {
+      this.products = [];
+      this.getElements(element);
+      console.log('new cart', this);
+    }
+    getElements(element){
+      this.dom = {};
+      this.dom.wrapper = element;
+    }
+  }
   const app = {
     initMenu : function(){
       const thisApp = this;
@@ -264,6 +274,11 @@
       const thisApp = this;
       thisApp.data = dataSource;
     },
+    initCart: function(){
+      const thisApp = this;
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
+    },
     init: function(){
       const thisApp = this;
       console.log('*** App starting ***');
@@ -274,6 +289,7 @@
 
       thisApp.initData();
       thisApp.initMenu();
+      this.initCart();
     },
   };
 
