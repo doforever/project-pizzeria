@@ -91,6 +91,7 @@
       const thisProduct = this;
       thisProduct.id = id;
       thisProduct.data = data;
+      thisProduct.dom = {};
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
@@ -112,18 +113,18 @@
     }
     getElements() {
       const thisProduct = this;
-      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
-      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
-      thisProduct.formInputs = thisProduct.element.querySelectorAll(select.all.formInputs);
-      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
-      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+      thisProduct.dom.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.dom.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.dom.formInputs = thisProduct.element.querySelectorAll(select.all.formInputs);
+      thisProduct.dom.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.dom.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.dom.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.dom.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
     initAccordion() {
       const thisProduct = this;
       /* add event listner */
-      thisProduct.accordionTrigger.addEventListener('click', function(event){
+      thisProduct.dom.accordionTrigger.addEventListener('click', function(event){
         /* prevent default */
         event.preventDefault();
         /* find active */
@@ -138,33 +139,33 @@
     }
     initOrderForm() {
       const thisProduct = this;
-      thisProduct.form.addEventListener('submit', function(event){
+      thisProduct.dom.form.addEventListener('submit', function(event){
         event.preventDefault();
         thisProduct.processOrder();
       });
 
-      for (let input of thisProduct.formInputs){
+      for (let input of thisProduct.dom.formInputs){
         input.addEventListener('change', function(){
           thisProduct.processOrder();
         });
       }
 
-      thisProduct.cartButton.addEventListener('click', function(event){
+      thisProduct.dom.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
       });
     }
     initAmountWidget(){
       const thisProduct = this;
-      thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
-      this.amountWidgetElem.addEventListener('updated', () => {
+      thisProduct.amountWidget = new AmountWidget (thisProduct.dom.amountWidgetElem);
+      this.dom.amountWidgetElem.addEventListener('updated', () => {
         this.processOrder();
       });
     }
     processOrder() {
       const thisProduct = this;
       // console.log('Product data', thisProduct.id, thisProduct.data);
-      const formData = utils.serializeFormToObject(thisProduct.form);
+      const formData = utils.serializeFormToObject(thisProduct.dom.form);
       // console.log('form', thisProduct.id, formData);
 
       /* set price to default */
@@ -180,7 +181,7 @@
           const option = param.options[optionId];
 
           /* find image with class .paramId-optionId */
-          const optionImg = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          const optionImg = thisProduct.dom.imageWrapper.querySelector('.' + paramId + '-' + optionId);
 
           /* determine if option is checked */
           const isChecked = formData[paramId].includes(optionId);
@@ -202,7 +203,7 @@
       /* multiply price by amount */
       price = price * thisProduct.amountWidget.value;
       /* udate price */
-      thisProduct.priceElem.innerHTML = price;
+      thisProduct.dom.priceElem.innerHTML = price;
     }
   }
 
@@ -212,8 +213,8 @@
       this.setValue(settings.amountWidget.defaultValue);
       this.initActions();
 
-      console.log('Amount wiget', this);
-      console.log('constructor arguments:', element );
+      // console.log('Amount wiget', this);
+      // console.log('constructor arguments:', element );
     }
     getElements(element) {
 
