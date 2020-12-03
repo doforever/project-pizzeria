@@ -248,9 +248,9 @@
   }
 
   class AmountWidget {
-    constructor(element) {
+    constructor(element, value = settings.amountWidget.defaultValue) {
       this.getElements(element);
-      this.setValue(settings.amountWidget.defaultValue);
+      this.setValue(value);
       this.initActions();
 
       // console.log('Amount wiget', this);
@@ -340,8 +340,7 @@
       this.dom.remove = element.querySelector(select.cartProduct.remove);
     }
     initAmountWidget(){
-      this.amountWidget = new AmountWidget (this.dom.amountWidget);
-      this.amountWidget.setValue(this.amount);
+      this.amountWidget = new AmountWidget (this.dom.amountWidget, this.amount);
       this.dom.amountWidget.addEventListener('updated', () => {
         this.amount = this.amountWidget.value;
         this.price = this.priceSingle * this.amount;
