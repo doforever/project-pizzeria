@@ -206,8 +206,30 @@
       thisProduct.dom.priceElem.innerHTML = price;
     }
     prepareCartProductParams(){
-      const params = {};
-      return params;
+      const cartProductParams = {};
+      const thisProduct = this;
+      const formData = utils.serializeFormToObject(thisProduct.dom.form);
+
+      /* for every category */
+      for (let paramId in thisProduct.data.params){
+      /* determine param value */
+        const param = thisProduct.data.params[paramId];
+        cartProductParams[paramId] = {};
+        cartProductParams[paramId].label = param.label;
+        cartProductParams[paramId].options = {};
+        // /* for every option */
+        for (let optionId in param.options) {
+        /* determine option value */
+          const option = param.options[optionId];
+          /* determine if option is checked */
+          const isChecked = formData[paramId].includes(optionId);
+          /* add to options in cart params object */
+          if (isChecked ) {
+            cartProductParams[paramId].options[optionId] = option.label;
+          }
+        }
+      }
+      return cartProductParams;
     }
     prepareCartProduct(){
       const productSummary = {};
