@@ -302,6 +302,7 @@
       this.dom = {};
       this.dom.wrapper = element;
       this.dom.toggleTrigger = this.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      this.dom.productList = this.dom.wrapper.querySelector(select.cart.productList);
     }
     initActions(){
       this.dom.toggleTrigger.addEventListener('click', () => {
@@ -309,7 +310,12 @@
       });
     }
     add(menuProduct){
-      console.log('adding to cart', menuProduct);
+      /* Generate html */
+      const generatedHTML = templates.cartProduct(menuProduct);
+      /* Generete DOM element */
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      /* Add element product list */
+      this.dom.productList.appendChild(generatedDOM);
     }
   }
 
