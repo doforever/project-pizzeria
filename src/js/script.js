@@ -288,7 +288,7 @@
       });
     }
     announce() {
-      const event = new Event('updated');
+      const event = new CustomEvent('updated', {bubbles: true});
       this.element.dispatchEvent(event);
     }
   }
@@ -311,6 +311,9 @@
     initActions(){
       this.dom.toggleTrigger.addEventListener('click', () => {
         this.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+      this.dom.productList.addEventListener('updated', () => {
+        this.update();
       });
     }
     add(menuProduct){
