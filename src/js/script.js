@@ -315,6 +315,9 @@
       this.dom.productList.addEventListener('updated', () => {
         this.update();
       });
+      this.dom.productList.addEventListener('remove', (event) => {
+        this.remove(event.detail.cartProduct);
+      });
     }
     add(menuProduct){
       /* Generate html */
@@ -325,7 +328,6 @@
       this.dom.productList.appendChild(generatedDOM);
       this.products.push(new CartProduct(menuProduct, generatedDOM));
       this.update();
-      console.log('cart',this);
     }
     update(){
       let deliveryFee = settings.cart.defaultDeliveryFee;
@@ -348,6 +350,15 @@
       }
       this.dom.totalNumber.innerHTML = totalNumber;
     }
+    remove(cartProduct){
+      /* remove product html */
+      cartProduct.dom.wrapper.remove();
+      /* remove product from this.products array */
+      const indexOfProduct = this.products.indexOf(cartProduct);
+      this.products.splice(indexOfProduct, 1);
+      /* call update */
+      this.update();
+    }
   }
 
   class CartProduct {
@@ -359,6 +370,7 @@
       this.priceSingle = menuProduct.priceSingle;
       this.getElements(element);
       this.initAmountWidget();
+      this.initActions();
     }
     getElements(element){
       this.dom = {};
@@ -368,6 +380,15 @@
       this.dom.edit = element.querySelector(select.cartProduct.edit);
       this.dom.remove = element.querySelector(select.cartProduct.remove);
     }
+    initActions(){
+      this.dom.edit.addEventListener('click', (event) => {
+        event.preventDefault();
+      });
+      this.dom.remove.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.remove();
+      });
+    }
     initAmountWidget(){
       this.amountWidget = new AmountWidget (this.dom.amountWidget, this.amount);
       this.dom.amountWidget.addEventListener('updated', () => {
@@ -375,6 +396,15 @@
         this.price = this.priceSingle * this.amount;
         this.dom.price.innerHTML = this.price;
       });
+    }
+    remove(){
+      const event = new CustomEvent('remove', {
+        bubbles: true,
+        detail: {
+          cartProduct: this,
+        },
+      });
+      this.dom.wrapper.dispatchEvent(event);
     }
   }
 
