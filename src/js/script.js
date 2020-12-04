@@ -69,12 +69,15 @@
       defaultValue: 1,
       defaultMin: 1,
       defaultMax: 10,
-    }, // CODE CHANGED
-    // CODE ADDED START
+    },
     cart: {
       defaultDeliveryFee: 20,
     },
-    // CODE ADDED END
+    db: {
+      url: '//localhost:3131',
+      product: 'product',
+      order: 'order',
+    },
   };
 
   const templates = {
@@ -412,13 +415,23 @@
     initMenu : function(){
       const thisApp = this;
       for (let productData in thisApp.data.products){
-        new Product(productData, thisApp.data.products[productData]);
+        new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
       }
 
     },
     initData: function(){
       const thisApp = this;
-      thisApp.data = dataSource;
+      const url = settings.db.url + '/' + settings.db.product;
+      thisApp.data = {};
+      fetch(url)
+        .then(function(rawResponse){
+          return rawResponse.json();
+        })
+        .then(function(parsedResponse){
+          console.log('parsedResponse', parsedResponse);
+          thisApp.data.products = parsedResponse;
+          thisApp.initMenu();
+        });
     },
     initCart: function(){
       const thisApp = this;
@@ -434,7 +447,6 @@
       console.log('templates:', templates);
 
       thisApp.initData();
-      thisApp.initMenu();
       this.initCart();
     },
   };
