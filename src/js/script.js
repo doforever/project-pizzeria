@@ -155,6 +155,7 @@
         event.preventDefault();
         thisProduct.processOrder();
         thisProduct.addToCart();
+        thisProduct.restoreDefault();
       });
     }
     initAmountWidget(){
@@ -207,6 +208,34 @@
       price = price * thisProduct.amountWidget.value;
       /* udate price */
       thisProduct.dom.priceElem.innerHTML = price;
+    }
+    restoreDefault(){
+      this.dom.form.reset();
+      this.amountWidget.setValue(settings.amountWidget.defaultValue);
+      this.processOrder();
+      // this.dom.priceElem.innerHTML = this.data.price;
+
+      // /* for every category */
+      // for (let paramId in this.data.params){
+      //   /* determine param value */
+      //   const param = this.data.params[paramId];
+      //   /* for every option */
+      //   for (let optionId in param.options) {
+      //     /* determine option value */
+      //     const option = param.options[optionId];
+
+      //     /* find image with class .paramId-optionId */
+      //     const optionImg = this.dom.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+
+      //     /* determine if option is default */
+      //     const isDefault = option.default;
+
+      //     /* if checked add image to wrapper */
+      //     if (optionImg) {
+      //       isDefault ? optionImg.classList.add(classNames.menuProduct.imageVisible) : optionImg.classList.remove(classNames.menuProduct.imageVisible);
+      //     }
+      //   }
+      // }
     }
     prepareCartProductParams(){
       const cartProductParams = {};
