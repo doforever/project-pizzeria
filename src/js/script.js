@@ -37,7 +37,7 @@
       toggleTrigger: '.cart__summary',
       totalNumber: `.cart__total-number`,
       totalPrice: '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
-      subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
+      subTotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
       deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
       form: '.cart__order',
       formSubmit: '.cart__order [type="submit"]',
@@ -307,9 +307,12 @@
       this.dom.toggleTrigger = this.dom.wrapper.querySelector(select.cart.toggleTrigger);
       this.dom.productList = this.dom.wrapper.querySelector(select.cart.productList);
       this.dom.deliveryFee = element.querySelector(select.cart.deliveryFee);
-      this.dom.subtotalPrice = element.querySelector(select.cart.subtotalPrice);
+      this.dom.subTotalPrice = element.querySelector(select.cart.subTotalPrice);
       this.dom.totalPrice = element.querySelectorAll(select.cart.totalPrice);
       this.dom.totalNumber = element.querySelector(select.cart.totalNumber);
+      this.dom.form = element.querySelector(select.cart.form);
+      this.dom.address = element.querySelector(select.cart.address);
+      this.dom.phone = element.querySelector(select.cart.phone);
     }
     initActions(){
       this.dom.toggleTrigger.addEventListener('click', () => {
@@ -320,6 +323,10 @@
       });
       this.dom.productList.addEventListener('remove', (event) => {
         this.remove(event.detail.cartProduct);
+      });
+      this.dom.form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        this.sendOrder();
       });
     }
     add(menuProduct){
@@ -334,24 +341,24 @@
     }
     update(){
       let deliveryFee = settings.cart.defaultDeliveryFee;
-      let totalNumber = 0;
-      let subtotalPrice = 0;
+      this.totalNumber = 0;
+      this.subTotalPrice = 0;
       for (let product of this.products){
-        totalNumber = totalNumber + product.amount;
-        subtotalPrice = subtotalPrice + product.price;
+        this.totalNumber = this.totalNumber + product.amount;
+        this.subTotalPrice = this.subTotalPrice + product.price;
       }
-      if (subtotalPrice) {
-        this.totalPrice = subtotalPrice + deliveryFee;
+      if (this.products.length) {
+        this.totalPrice = this.subTotalPrice + deliveryFee;
       } else {
         this.totalPrice = 0;
         deliveryFee = 0;
       }
       this.dom.deliveryFee.innerHTML = deliveryFee;
-      this.dom.subtotalPrice.innerHTML = subtotalPrice;
+      this.dom.subTotalPrice.innerHTML = this.subTotalPrice;
       for (let total of this.dom.totalPrice){
         total.innerHTML = this.totalPrice;
       }
-      this.dom.totalNumber.innerHTML = totalNumber;
+      this.dom.totalNumber.innerHTML = this.totalNumber;
     }
     remove(cartProduct){
       /* remove product html */
@@ -362,6 +369,39 @@
       /* call update */
       this.update();
     }
+    sendOrder(){
+      const url = settings.db.url + '/' + settings.db.order;
+
+      const payload = {
+        // address: adres klienta wpisany w koszyku,
+        address: this.dom.address.value,
+        // phone: numer telefonu wpisany w koszyku,
+        phone: this.dom.phone.value,
+        // totalPrice: całkowita cena za zamówienie,
+        totalPrice: this.totalPrice,
+        // subTotalPrice: cena całkowita - koszt dostawy,
+        subTotalPrice: this.subTotalPrice,
+        // totalNumber: całkowita liczba sztuk,
+        totalNumber: this.totalNumber,
+        // deliveryFee: koszt dostawy,
+        deliveryFee: this.totalPrice - this.subTotalPrice,
+        // products: tablica obecnych w koszyku produktów
+        products: [],
+      };
+
+      for (let prod of this.products) {
+        payload.products.push(prod.getData());
+      }
+      const options = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify(payload)
+      };
+
+      // console.log('sending order', payload);
+      fetch(url, options)
+        .then((response) => console.log('Order sent, response status:', response.status, response.statusText));
+    }
   }
 
   class CartProduct {
@@ -371,6 +411,7 @@
       this.amount = menuProduct.amount;
       this.price = menuProduct.price;
       this.priceSingle = menuProduct.priceSingle;
+      this.params = menuProduct.params;
       this.getElements(element);
       this.initAmountWidget();
       this.initActions();
@@ -409,6 +450,16 @@
       });
       this.dom.wrapper.dispatchEvent(event);
     }
+    getData(){
+      return {
+        id: this.id,
+        amount: this.amount,
+        price: this.price,
+        priceSingle: this.priceSingle,
+        name: this.name,
+        params: this.params,
+      };
+    }
   }
 
   const app = {
@@ -428,7 +479,6 @@
           return rawResponse.json();
         })
         .then(function(parsedResponse){
-          console.log('parsedResponse', parsedResponse);
           thisApp.data.products = parsedResponse;
           thisApp.initMenu();
         });
