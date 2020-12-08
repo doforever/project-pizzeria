@@ -339,19 +339,19 @@
         this.sendOrder();
         this.empty();
       });
-      this.dom.form.addEventListener('change', (event) => {
-        event.preventDefault();
-        this.validate(event.target);
-      });
+      // this.dom.form.addEventListener('change', (event) => {
+      //   event.preventDefault();
+      //   this.validate(event.target);
+      // });
     }
-    validate(input){
-      console.log('validating', input.name, input.validity);
-      input.classList.remove('error');
-      if (input.validity.patternMismatch) {
-        input.classList.add('error');
-        input.setCustomValidity(settings.validityMess[input.name]);
-      }
-    }
+    // validate(input){
+    //   console.log('validating', input.name, input.validity);
+    //   input.classList.remove('error');
+    //   if (input.validity.patternMismatch) {
+    //     input.classList.add('error');
+    //     input.setCustomValidity(settings.validityMess[input.name]);
+    //   }
+    // }
     add(menuProduct){
       /* Generate html */
       const generatedHTML = templates.cartProduct(menuProduct);

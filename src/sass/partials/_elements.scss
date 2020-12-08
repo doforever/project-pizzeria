@@ -39,6 +39,10 @@ input, select {
   &.error {
     border-color: $color-main;
   }
+
+  &:invalid {
+    border-color: $color-main;
+  }
   // CODE ADDED END
 }
 
