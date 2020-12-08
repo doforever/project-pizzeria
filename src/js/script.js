@@ -78,6 +78,10 @@
       product: 'product',
       order: 'order',
     },
+    validityMess: {
+      phone: 'Insert a valid phone number starting with +',
+      address: 'Your address is too short',
+    },
   };
 
   const templates = {
@@ -341,12 +345,11 @@
       });
     }
     validate(input){
-      const validityState = input.validity;
-      console.log('validating', input.name, validityState.valid);
+      console.log('validating', input.name, input.validity);
       input.classList.remove('error');
-      if (!validityState.valid) {
+      if (input.validity.patternMismatch) {
         input.classList.add('error');
-        input.setCustomValidity('Insert a valid phone number starting with +');
+        input.setCustomValidity(settings.validityMess[input.name]);
       }
     }
     add(menuProduct){
