@@ -44,8 +44,8 @@
                 </li>
               </ul>
               <div class="cart__order-confirmation">
-                <input type="tel" name="phone" placeholder="Your phone">
-                <input type="text" name="address" placeholder="Your address">
+                <input type="tel" name="phone" placeholder="Your phone" pattern="[+][0-9]{11,12}" required>
+                <input type="text" name="address" placeholder="Your address" minlength = "5" required>
                 <button type="submit" class="btn-secondary">Order</button>
               </div>
             </form>

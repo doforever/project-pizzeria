@@ -335,6 +335,19 @@
         this.sendOrder();
         this.empty();
       });
+      this.dom.form.addEventListener('change', (event) => {
+        event.preventDefault();
+        this.validate(event.target);
+      });
+    }
+    validate(input){
+      const validityState = input.validity;
+      console.log('validating', input.name, validityState.valid);
+      input.classList.remove('error');
+      if (!validityState.valid) {
+        input.classList.add('error');
+        input.setCustomValidity('Insert a valid phone number starting with +');
+      }
     }
     add(menuProduct){
       /* Generate html */
