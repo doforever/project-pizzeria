@@ -122,3 +122,4 @@ dist
 VSconfig.code-workspace
 .editorconfig
 .stylelintrc.json
+.vscode/settings.json
