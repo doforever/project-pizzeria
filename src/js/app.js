@@ -3,19 +3,27 @@ import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
 
-
 const app = {
   initMenu: function () {
-    const thisApp = this;
-    for (let productData in thisApp.data.products) {
-      new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
+    for (let productData in this.data.products) {
+      new Product(this.data.products[productData].id, this.data.products[productData]);
     }
 
+  },
+  init: function () {
+    console.log('*** App starting ***');
+    console.log('thisApp:', this);
+    console.log('settings:', settings);
+
+    this.initData();
+    this.initCart();
+    this.initPages();
+    this.initBooking();
   },
   initData: function () {
     const thisApp = this;
     const url = settings.db.url + '/' + settings.db.product;
-    thisApp.data = {};
+    this.data = {};
     fetch(url)
       .then(function (rawResponse) {
         return rawResponse.json();
@@ -26,26 +34,14 @@ const app = {
       });
   },
   initCart: function () {
-    const thisApp = this;
     const cartElem = document.querySelector(select.containerOf.cart);
-    thisApp.cart = new Cart(cartElem);
+    this.cart = new Cart(cartElem);
     this.productList = document.querySelector(select.containerOf.menu);
     this.productList.addEventListener('add-to-cart', (event) => {
       app.cart.add(event.detail);
     });
   },
-  init: function () {
-    const thisApp = this;
-    console.log('*** App starting ***');
-    console.log('thisApp:', thisApp);
-    console.log('settings:', settings);
-
-    thisApp.initData();
-    this.initCart();
-    this.initPages();
-    this.initBooking();
-  },
-  initPages(){
+  initPages: function () {
     this.pages = document.querySelector(select.containerOf.pages).children;
     this.navLinks = document.querySelectorAll(select.nav.links);
 
@@ -72,7 +68,7 @@ const app = {
       });
     }
   },
-  activatePage(pageId){
+  activatePage: function (pageId) {
     /* add class 'active' to matching pages, remove from non-matching */
     for (let page of this.pages){
       page.classList.toggle(
@@ -88,7 +84,7 @@ const app = {
       );
     }
   },
-  initBooking(){
+  initBooking: function (){
     const bookingContainer = document.querySelector(select.containerOf.booking);
     new Booking(bookingContainer);
   }
