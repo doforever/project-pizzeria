@@ -42,13 +42,13 @@ class Cart {
     });
   }
   validate(input){
-    const isValid = input.validity.valid;
-
+    const isValid = !input.validity.patternMismatch;
     if (!isValid) {
       input.classList.add('error');
-      /* TODO set custom error message */
+      input.setCustomValidity(settings.validityMess[input.name]);
     } else {
       input.classList.remove('error');
+      input.setCustomValidity('');
     }
   }
 
