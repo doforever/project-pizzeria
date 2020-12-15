@@ -2,6 +2,9 @@
   padding: ($base-size * 5) 0 ($base-size * 8) 0;
   background: $color-dark;
   color: $color-light;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
   &__wrapper {
     position: relative;
@@ -15,6 +18,7 @@
 
   &__title {
     margin: 0 0 $base-size 0;
+
     font-size: ($base-size * 4);
     font-family: $font-header;
     font-weight: $font-light;
