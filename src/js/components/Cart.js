@@ -63,6 +63,8 @@ class Cart {
     this.update();
   }
   update(){
+    const wrapper = this.dom.wrapper;
+    wrapper.classList.add(classNames.cart.wrapperChanging);
     let deliveryFee = settings.cart.defaultDeliveryFee;
     this.totalNumber = 0;
     this.subTotalPrice = 0;
@@ -83,6 +85,7 @@ class Cart {
       total.innerHTML = this.totalPrice;
     }
     this.dom.totalNumber.innerHTML = this.totalNumber;
+    setTimeout(function(){ wrapper.classList.remove(classNames.cart.wrapperChanging); },0);
   }
   remove(cartProduct){
     /* remove product html */

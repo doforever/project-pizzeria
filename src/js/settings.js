@@ -74,6 +74,7 @@ export const classNames = {
   },
   cart: {
     wrapperActive: 'active',
+    wrapperChanging: 'changing',
   },
   booking: {
     loading: 'loading',
