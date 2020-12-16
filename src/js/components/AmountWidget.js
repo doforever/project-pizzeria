@@ -2,13 +2,12 @@ import { settings, select } from '../settings.js';
 import BaseWidget from './BaseWidget.js';
 
 class AmountWidget extends BaseWidget {
-  constructor(element, value = settings.amountWidget.defaultValue) {
-    super(element, value);
+  constructor(element) {
+    super(element, settings.amountWidget.defaultValue);
     this.getElements(element);
-    this.setValue(value);
     this.initActions();
 
-    console.log('Amount wiget', this);
+    // console.log('Amount wiget', this);
     // console.log('constructor arguments:', element );
   }
   getElements() {

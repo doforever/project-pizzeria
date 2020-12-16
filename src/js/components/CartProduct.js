@@ -32,7 +32,8 @@ class CartProduct {
     });
   }
   initAmountWidget(){
-    this.amountWidget = new AmountWidget (this.dom.amountWidget, this.amount);
+    this.amountWidget = new AmountWidget (this.dom.amountWidget);
+    this.amountWidget.setValue(this.amount);
     this.dom.amountWidget.addEventListener('updated', () => {
       this.amount = this.amountWidget.value;
       this.price = this.priceSingle * this.amount;

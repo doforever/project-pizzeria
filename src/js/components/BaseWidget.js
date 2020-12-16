@@ -2,15 +2,21 @@ class BaseWidget {
   constructor(wrapperElement, initialValue){
     this.dom = {};
     this.dom.wrapper = wrapperElement;
-    this.value = initialValue;
+    this.correctValue = initialValue;
   }
-  setValue(value) {
+  get value(){
+    return this.correctValue;
+  }
+  set value(value) {
     const newValue = this.parseValue(value);
-    if (this.value!==newValue && this.isValid(newValue)){
-      this.value = newValue;
+    if (this.correctValue!==newValue && this.isValid(newValue)){
+      this.correctValue = newValue;
       this.announce();
     }
     this.renderValue();
+  }
+  setValue(value){
+    this.value = value;
   }
   parseValue(value){
     return parseInt(value);
