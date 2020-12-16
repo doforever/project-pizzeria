@@ -1,46 +1,41 @@
-import {settings, select} from '../settings.js';
+import { settings, select } from '../settings.js';
+import BaseWidget from './BaseWidget.js';
 
-class AmountWidget {
+class AmountWidget extends BaseWidget {
   constructor(element, value = settings.amountWidget.defaultValue) {
+    super(element, value);
     this.getElements(element);
     this.setValue(value);
     this.initActions();
 
-    // console.log('Amount wiget', this);
+    console.log('Amount wiget', this);
     // console.log('constructor arguments:', element );
   }
-  getElements(element) {
-
-    this.element = element;
-    this.input = this.element.querySelector(select.widgets.amount.input);
-    this.linkDecrease = this.element.querySelector(select.widgets.amount.linkDecrease);
-    this.linkIncrease = this.element.querySelector(select.widgets.amount.linkIncrease);
+  getElements() {
+    this.dom.input = this.dom.wrapper.querySelector(select.widgets.amount.input);
+    this.dom.linkDecrease = this.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
+    this.dom.linkIncrease = this.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
   }
-  setValue(value) {
-    const newValue = parseInt(value);
-    if (this.value!==newValue && !isNaN(newValue)
-    && newValue <= settings.amountWidget.defaultMax && newValue >= settings.amountWidget.defaultMin){
-      this.value = newValue;
-      this.announce();
-    }
-    this.input.value = this.value;
+  isValid(value) {
+    return !isNaN(value)
+      && value <= settings.amountWidget.defaultMax
+      && value >= settings.amountWidget.defaultMin;
+  }
+  renderValue() {
+    this.dom.input.value = this.value;
   }
   initActions() {
-    this.input.addEventListener('change', () => {
-      this.setValue(this.input.value);
+    this.dom.input.addEventListener('change', () => {
+      this.setValue(this.dom.input.value);
     });
-    this.linkDecrease.addEventListener('click', event => {
+    this.dom.linkDecrease.addEventListener('click', event => {
       event.preventDefault();
-      this.setValue(this.input.value - 1);
+      this.setValue(this.dom.input.value - 1);
     });
-    this.linkIncrease.addEventListener('click', event => {
+    this.dom.linkIncrease.addEventListener('click', event => {
       event.preventDefault();
-      this.setValue(parseInt(this.input.value) + 1);
+      this.setValue(parseInt(this.dom.input.value) + 1);
     });
-  }
-  announce() {
-    const event = new CustomEvent('updated', {bubbles: true});
-    this.element.dispatchEvent(event);
   }
 }
 export default AmountWidget;
