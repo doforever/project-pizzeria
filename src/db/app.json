@@ -112,7 +112,7 @@
   "event": [
     {
       "id": 1,
-      "date": "2019-01-01",
+      "date": "2020-12-21",
       "hour": "12:30",
       "table": 1,
       "repeat": false,
@@ -161,5 +161,16 @@
       "starters": ["lemonWater"]
     }
   ],
-  "booking": []
+  "booking": [
+    {
+      "id": 1,
+      "date": "2020-12-21",
+      "hour": "18:00",
+      "table": 2,
+      "repeat": false,
+      "duration": 2,
+      "ppl": 3,
+      "starters": ["lemonWater"]
+    }
+  ]
 }
