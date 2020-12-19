@@ -25,6 +25,10 @@ class Booking {
     this.dom.hourPicker = this.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     this.dom.floorPlan = this.dom.wrapper.querySelector(select.booking.floorPlan);
     this.dom.tables = this.dom.wrapper.querySelectorAll(select.booking.tables);
+    this.dom.submitBtn = this.dom.wrapper.querySelector(select.booking.submit);
+    this.dom.address = this.dom.wrapper.querySelector(select.booking.address);
+    this.dom.phone = this.dom.wrapper.querySelector(select.booking.phone);
+    this.dom.starters = this.dom.wrapper.querySelectorAll(select.booking.starters);
 
   }
   initWidgets() {
@@ -43,6 +47,10 @@ class Booking {
       if (event.target.classList.contains(classNames.booking.table)){
         this.pickTable(event.target);
       }
+    });
+    this.dom.submitBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.sendBooking();
     });
   }
   renderAlert() {
@@ -169,6 +177,39 @@ class Booking {
       }
       this.booked[date][hourBlock].push(table);
     }
+  }
+  sendBooking(){
+    /* prepare booking object */
+    const newBooking = {
+      'date': this.date,
+      'hour': this.hourPicker.value,
+      'table': this.pickedTable? parseInt(this.pickedTable.getAttribute(settings.booking.tableIdAttribute)) : null,
+      'duration': this.hoursAmount.value,
+      'ppl': this.peopleAmount.value,
+      'starters': [],
+      'phone': this.dom.phone.value,
+      'address': this.dom.address.value,
+    };
+    for (let starter of this.dom.starters){
+      if (starter.checked){
+        newBooking.starters.push(starter.value);
+      }
+    }
+
+    /* send booking to localhost:3131/booking */
+    const url = settings.db.url + '/' + settings.db.booking;
+
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',},
+      body: JSON.stringify(newBooking),
+    };
+
+    fetch(url, options)
+      .then((response) => console.log('Booking sent, response status:', response.status, response.statusText));
+
+    /* use makeBooked to add new booking */
+
   }
   updateDOM(){
     if (this.pickedTable) {
