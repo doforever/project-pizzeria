@@ -209,7 +209,9 @@ class Booking {
       .then((response) => console.log('Booking sent, response status:', response.status, response.statusText));
 
     /* use makeBooked to add new booking */
+    this.makeBooked(newBooking.date, newBooking.hour, newBooking.duration, newBooking.table);
 
+    this.updateDOM();
   }
   updateDOM(){
     if (this.pickedTable) {
