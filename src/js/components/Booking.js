@@ -42,7 +42,6 @@ class Booking {
     this.dom.floorPlan.addEventListener('click', (event) => {
       if (event.target.classList.contains(classNames.booking.table)){
         this.pickTable(event.target);
-        this.updateDOM();
       }
     });
   }
@@ -60,11 +59,20 @@ class Booking {
     }
     /* check if table is booked */
     if (!table.classList.contains(classNames.booking.tableBooked)){
-      /* save picked table to Booking */
+
       if (table != this.pickedTable){
+        /* remove picked from previous selection and add to new */
+        if (this.pickedTable) this.pickedTable.classList.remove(classNames.booking.tablePicked);
+        table.classList.add(classNames.booking.tablePicked);
+        /* save picked table to Booking */
         this.pickedTable = table;
+      } else {
+        /* remove pick */
+        table.classList.remove(classNames.booking.tablePicked);
+        this.pickedTable = '';
       }
     } else {
+      /* show anavailable message */
       this.dom.alert.classList.add(classNames.booking.showAlert);
       hide(this.dom.alert);
     }
@@ -163,8 +171,10 @@ class Booking {
     }
   }
   updateDOM(){
-    /* TODO update picked tables */
-    console.log('need to udpate picked tables!');
+    if (this.pickedTable) {
+      this.pickedTable.classList.remove(classNames.booking.tablePicked);
+      this.pickedTable = '';
+    }
     this.date = this.datePicker.value;
     this.hour = utils.hourToNumber(this.hourPicker.value);
 
