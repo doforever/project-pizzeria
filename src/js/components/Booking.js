@@ -9,6 +9,7 @@ class Booking {
     this.render(container);
     this.initWidgets();
     this.getData();
+    this.initActions();
   }
   render(container) {
     const generatedHTML = templates.bookingWidget();
@@ -20,7 +21,7 @@ class Booking {
     this.dom.hoursAmount = this.dom.wrapper.querySelector(select.booking.hoursAmount);
     this.dom.datePicker = this.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     this.dom.hourPicker = this.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
-
+    this.dom.floorPlan = this.dom.wrapper.querySelector(select.booking.floorPlan);
     this.dom.tables = this.dom.wrapper.querySelectorAll(select.booking.tables);
 
   }
@@ -33,6 +34,26 @@ class Booking {
     this.dom.wrapper.addEventListener('updated', () => {
       this.updateDOM();
     });
+  }
+  initActions(){
+    /* click to pick a table */
+    this.dom.floorPlan.addEventListener('click', (event) => {
+      if (event.target.classList.contains(classNames.booking.table)){
+        this.pickTable(event.target);
+        this.updateDOM();
+      }
+    });
+  }
+  pickTable(table){
+    console.log('pick table', table);
+    /* check if table is booked */
+
+    /* check if table is picked */
+
+    /* save picked table to Booking */
+
+    /* add and remove class picked as appropriate */
+
   }
   getData(){
 
@@ -128,6 +149,8 @@ class Booking {
     }
   }
   updateDOM(){
+    /* TODO update picked tables */
+    console.log('need to udpate picked tables!');
     this.date = this.datePicker.value;
     this.hour = utils.hourToNumber(this.hourPicker.value);
 
