@@ -38,6 +38,9 @@ export const select = {
       input: 'input[type="range"]',
       output: '.output',
     },
+    carousel: {
+      wrapper: '.main-carousel',
+    }
   },
   cart: {
     productList: '.cart__order-summary',
