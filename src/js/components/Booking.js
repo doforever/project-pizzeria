@@ -6,6 +6,7 @@ import HourPicker from './HourPicker.js';
 
 class Booking {
   constructor(container) {
+    this.pickedTable = '';
     this.render(container);
     this.renderAlert();
     this.initWidgets();
@@ -54,22 +55,19 @@ class Booking {
     this.dom.alert = alert;
   }
   pickTable(table){
-    console.log('pick table', table);
     function hide(alert){
       setTimeout(() => {alert.classList.remove(classNames.booking.showAlert);}, 1000);
-      console.log('hiding');
     }
     /* check if table is booked */
-    if (table.classList.contains(classNames.booking.tableBooked)){
+    if (!table.classList.contains(classNames.booking.tableBooked)){
+      /* save picked table to Booking */
+      if (table != this.pickedTable){
+        this.pickedTable = table;
+      }
+    } else {
       this.dom.alert.classList.add(classNames.booking.showAlert);
       hide(this.dom.alert);
     }
-    /* check if table is picked */
-
-    /* save picked table to Booking */
-
-    /* add and remove class picked as appropriate */
-
   }
   getData(){
 
