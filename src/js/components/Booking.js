@@ -7,6 +7,7 @@ import HourPicker from './HourPicker.js';
 class Booking {
   constructor(container) {
     this.render(container);
+    this.renderAlert();
     this.initWidgets();
     this.getData();
     this.initActions();
@@ -44,10 +45,25 @@ class Booking {
       }
     });
   }
+  renderAlert() {
+    const alert = document.createElement('div');
+    alert.innerHTML = `<p>${settings.booking.unavailableMess}</p>`;
+    alert.classList.add(classNames.booking.alert);
+    /* add the newly created element and it's content into the DOM */
+    this.dom.wrapper.prepend(alert);
+    this.dom.alert = alert;
+  }
   pickTable(table){
     console.log('pick table', table);
+    function hide(alert){
+      setTimeout(() => {alert.classList.remove(classNames.booking.showAlert);}, 1000);
+      console.log('hiding');
+    }
     /* check if table is booked */
-
+    if (table.classList.contains(classNames.booking.tableBooked)){
+      this.dom.alert.classList.add(classNames.booking.showAlert);
+      hide(this.dom.alert);
+    }
     /* check if table is picked */
 
     /* save picked table to Booking */

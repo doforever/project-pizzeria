@@ -82,6 +82,8 @@ export const classNames = {
     tableBooked: 'booked',
     table: 'table',
     tablePicked: 'picked',
+    alert: 'alert',
+    showAlert: 'show',
   },
   nav: {
     active: 'active',
@@ -109,6 +111,7 @@ export const settings = {
   },
   booking: {
     tableIdAttribute: 'data-table',
+    unavailableMess: 'Sorry, this table is anavailable'
   },
   db: {
     url: '//localhost:3131',
