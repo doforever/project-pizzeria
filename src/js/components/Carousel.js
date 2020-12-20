@@ -19,8 +19,6 @@ class Carousel {
       cellAlign: 'left',
       contain: true
     });
-    // eslint-disable-next-line no-undef
-    flkty.playPlayer();
   }
 }
 

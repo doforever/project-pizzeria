@@ -1,11 +1,12 @@
+/* General */
+
 .home-wrapper {
   @extend .booking-wrapper;
 }
 
-.block {
+.row {
   @include flex(row, default, space-between);
   flex-wrap: wrap;
-  margin-bottom: 100px;
 }
 
 .img-wrapper {
@@ -20,10 +21,18 @@
     height: 100%;
     @include center;
   }
+
+  img.vertical {
+    width: 100%;
+    height: auto;
+  }
 }
+
+/* Intro */
 
 .intro {
   text-align: center;
+  margin: 0 -2.5px 100px -2.5px;
 
   h2 {
     @extend .h1;
@@ -40,7 +49,7 @@
 
   p {
     color: $color-light;
-    @extend .no-spacing;
+    @include no-spacing;
   }
 
   .box-nav {
@@ -73,7 +82,7 @@
 
       .hidden-mess {
         opacity: 1;
-        transition: $transition-slow;
+        transition: $transition;
       }
     }
   }
@@ -94,6 +103,8 @@
   }
 }
 
+/* Opinions */
+
 .opinions {
   margin-bottom: 100px;
 
@@ -112,9 +123,73 @@
 
   h3 {
     font-size: inherit;
+    text-transform: uppercase;
   }
 
   p:last-child {
     font-style: italic;
+  }
+}
+
+/* Gallery */
+
+.gallery {
+  margin-bottom: 100px;
+
+  .gallery-wrapper {
+    margin: 0 -5.5px 31px -5.5px;
+
+    a {
+      text-decoration: none;
+      color: $color-light;
+
+      &:hover {
+        color: $color-danger;
+      }
+
+      i {
+        font-size: 0px;
+        transition: $transition;
+      }
+    }
+  }
+
+  .img-wrapper{
+    margin: 5.5px;
+
+    &:hover {
+      &::after{
+        content: "";
+        @include center;
+        width: 100%;
+        height: 100%;
+        background-color: $color-dark;
+        opacity: 0.5;
+      }
+
+      ul {
+        z-index: 1;
+      }
+
+      i {
+        font-size: 20px;
+        transition: $transition;
+      }
+    }
+  }
+
+  ul {
+    @include center;
+    @include no-spacing;
+    list-style-type: none;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  a {
+    color: $color-main;
   }
 }
