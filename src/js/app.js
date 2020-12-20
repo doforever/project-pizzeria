@@ -46,6 +46,7 @@ const app = {
   initPages: function () {
     this.pages = document.querySelector(select.containerOf.pages).children;
     this.navLinks = document.querySelectorAll(select.nav.links);
+    this.homeLinks = document.querySelectorAll(select.home.links);
 
     const idFormHash = window.location.hash.replace('#/', '');
     let pageMatchingHash = this.pages[0].id;
@@ -66,6 +67,15 @@ const app = {
         /* activate Page with id */
         this.activatePage(id);
         /* change URL hash */
+        window.location.hash = '#/' + id;
+      });
+    }
+
+    for (let link of this.homeLinks) {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const id = link.getAttribute('data-link');
+        this.activatePage(id);
         window.location.hash = '#/' + id;
       });
     }

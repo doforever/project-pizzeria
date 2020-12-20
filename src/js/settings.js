@@ -73,6 +73,9 @@ export const select = {
   nav: {
     links: '.main-nav a',
   },
+  home: {
+    links: '.box-nav',
+  }
 };
 
 export const classNames = {
@@ -98,6 +101,9 @@ export const classNames = {
   pages: {
     active: 'active',
   },
+  home: {
+    link: 'box-nav',
+  }
 };
 
 export const settings = {

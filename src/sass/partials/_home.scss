@@ -13,16 +13,53 @@
   h2 {
     @extend .h1;
     color: $color-light;
-    line-height: 120px;
     margin: 0 auto;
+    padding: 0;
   }
 
   div {
     margin: 2.5px;
     border-radius: $radius;
+    height: 120px;
+  }
+
+  p {
+    color: $color-light;
+    margin-bottom: 0;
+  }
+
+  .box-nav {
     flex: 1;
     background-size: cover;
-    height: 120px;
+    position: relative;
+    cursor: pointer;
+
+    .hidden-mess {
+      opacity: 0;
+    }
+
+    .inner {
+      position: absolute;
+      width: 100%;
+      left: 50%;
+      bottom: -5px;
+      transform: translateX(-50%);
+      height: auto;
+      transition: $transition;
+    }
+
+    &:hover {
+      .inner {
+        transition: $transition;
+        bottom: 50%;
+        transform: translate(-50%, 50%);
+      }
+
+      .hidden-mess {
+        opacity: 1;
+        transition: $transition-slow;
+      }
+    }
   }
 
   > div:first-child{
@@ -38,14 +75,5 @@
     flex: 100%;
     background-color: $color-main;
     @include flex(column, center, center);
-
-    h2 {
-      line-height: normal;
-    }
-  }
-
-  p {
-    @extend .no-spacing;
-    color: $color-light;
   }
 }
