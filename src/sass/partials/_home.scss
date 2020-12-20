@@ -1,0 +1,51 @@
+.home-wrapper {
+  @extend .booking-wrapper;
+}
+
+.block {
+  @include flex(row, default, space-between);
+  flex-wrap: wrap;
+}
+
+.intro {
+  text-align: center;
+
+  h2 {
+    @extend .h1;
+    color: $color-light;
+    line-height: 120px;
+    margin: 0 auto;
+  }
+
+  div {
+    margin: 2.5px;
+    border-radius: $radius;
+    flex: 1;
+    background-size: cover;
+    height: 120px;
+  }
+
+  > div:first-child{
+    background-image: url(../../images/home/pizza-1.jpg);
+    background-position: 0% 45%;
+  }
+
+  > div:nth-child(2) {
+    background-image: url(../../images/home/pizza-2.jpg);
+  }
+
+  > div:last-child{
+    flex: 100%;
+    background-color: $color-main;
+    @include flex(column, center, center);
+
+    h2 {
+      line-height: normal;
+    }
+  }
+
+  p {
+    @extend .no-spacing;
+    color: $color-light;
+  }
+}
