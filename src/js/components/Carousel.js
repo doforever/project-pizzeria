@@ -13,6 +13,7 @@ class Carousel {
     // eslint-disable-next-line no-undef
     this.plugin = new Flickity( this.dom.wrapper, {
       // options
+      pauseAutoPlayOnHover: false,
       prevNextButtons: false,
       wrapAround: true,
       autoPlay: true,
