@@ -13,9 +13,14 @@ class Carousel {
     // eslint-disable-next-line no-undef
     this.plugin = new Flickity( this.dom.wrapper, {
       // options
+      prevNextButtons: false,
+      wrapAround: true,
+      autoPlay: true,
       cellAlign: 'left',
       contain: true
     });
+    // eslint-disable-next-line no-undef
+    flkty.playPlayer();
   }
 }
 

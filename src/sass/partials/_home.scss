@@ -5,6 +5,21 @@
 .block {
   @include flex(row, default, space-between);
   flex-wrap: wrap;
+  margin-bottom: 100px;
+}
+
+.img-wrapper {
+  height: 194px;
+  width: 194px;
+  border-radius: $radius;
+  overflow: hidden;
+  flex: 0 0 auto;
+  position: relative;
+
+  img {
+    height: 100%;
+    @include center;
+  }
 }
 
 .intro {
@@ -25,7 +40,7 @@
 
   p {
     color: $color-light;
-    margin-bottom: 0;
+    @extend .no-spacing;
   }
 
   .box-nav {
@@ -36,6 +51,7 @@
 
     .hidden-mess {
       opacity: 0;
+      margin-top: 14px;
     }
 
     .inner {
@@ -75,5 +91,30 @@
     flex: 100%;
     background-color: $color-main;
     @include flex(column, center, center);
+  }
+}
+
+.opinions {
+  margin-bottom: 100px;
+
+  .main-carousel{
+    padding-bottom: 36px;
+  }
+
+  .carousel-cell{
+    @include flex(row, center, space-between);
+    width: 100%;
+  }
+
+  .img-wrapper {
+    margin: 0 38px 0 0;
+  }
+
+  h3 {
+    font-size: inherit;
+  }
+
+  p:last-child {
+    font-style: italic;
   }
 }
