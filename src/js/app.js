@@ -23,16 +23,15 @@ const app = {
     this.initCarousel();
   },
   initData: function () {
-    const thisApp = this;
     const url = settings.db.url + '/' + settings.db.product;
     this.data = {};
     fetch(url)
-      .then(function (rawResponse) {
+      .then((rawResponse) => {
         return rawResponse.json();
       })
-      .then(function (parsedResponse) {
-        thisApp.data.products = parsedResponse;
-        thisApp.initMenu();
+      .then((parsedResponse) => {
+        this.data.products = parsedResponse;
+        this.initMenu();
       });
   },
   initCart: function () {

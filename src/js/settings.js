@@ -65,6 +65,7 @@ export const select = {
     hoursAmount: '.hours-amount',
     floorPlan: '.floor-plan',
     tables: '.floor-plan .table',
+    tablePicked: '.picked',
     submit: '.booking-form [type="submit"]',
     phone: '[name="phone"]',
     address: '[name="address"]',
@@ -127,7 +128,7 @@ export const settings = {
     unavailableMess: 'Sorry, this table is anavailable'
   },
   db: {
-    url: '//localhost:3131',
+    url: '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : ''),
     product: 'product',
     order: 'order',
     booking: 'booking',
