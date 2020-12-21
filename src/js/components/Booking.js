@@ -76,14 +76,13 @@ class Booking {
     if (!table.classList.contains(classNames.booking.tableBooked)){
       /* find previously picked table */
       const activeTable = this.dom.floorPlan.querySelector(select.booking.tablePicked);
-      console.log('activeTable', activeTable);
+      if (activeTable) activeTable.classList.remove(classNames.booking.tablePicked);
       if (table !== activeTable){
         table.classList.add(classNames.booking.tablePicked);
         this.pickedTable = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
       } else {
         this.pickedTable = null;
       }
-      if (activeTable) activeTable.classList.remove(classNames.booking.tablePicked);
     } else {
       /* show anavailable message */
       this.showAlert(settings.booking.unavailableMess);
@@ -110,8 +109,6 @@ class Booking {
       ],
     };
 
-    // console.log('getData params', params);
-
     const urls = {
       bookings:       settings.db.url + '/' + settings.db.booking
                                      + '?' + params.bookings.join('&'),
@@ -121,7 +118,6 @@ class Booking {
                                      + '?' + params.eventsRepeat.join('&'),
     };
 
-    // console.log('getData urls', urls);
     Promise.all([
       fetch (urls.bookings),
       fetch (urls.eventsCurrent),
@@ -139,9 +135,6 @@ class Booking {
         ]);
       })
       .then(([bookings, eventsCurrent, eventsRepeat]) => {
-        // console.log('bookings', bookings);
-        // console.log('eventsCurrent', eventsCurrent);
-        // console.log('eventsRepeat', eventsRepeat);
         this.parseData(bookings, eventsCurrent, eventsRepeat);
       });
   }
@@ -163,7 +156,6 @@ class Booking {
         }
       }
     }
-    // console.log('booked', this.booked);
     this.updateDOM();
   }
   makeBooked(date, hour, duration, table){
