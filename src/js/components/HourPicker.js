@@ -35,6 +35,10 @@ class HourPicker extends BaseWidget{
 
     thisWidget.dom.output.innerHTML = thisWidget.value;
   }
+  announce() {
+    const event = new CustomEvent('hourUpdated', {bubbles: true});
+    this.dom.wrapper.dispatchEvent(event);
+  }
 }
 
 export default HourPicker;

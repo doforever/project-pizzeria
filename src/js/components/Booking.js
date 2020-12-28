@@ -40,6 +40,9 @@ class Booking {
     this.dom.wrapper.addEventListener('updated', () => {
       this.updateDOM();
     });
+    this.dom.wrapper.addEventListener('hourUpdated', () => {
+      this.updateDOM(false);
+    });
   }
   initActions(){
     /* click to pick a table */
@@ -68,6 +71,41 @@ class Booking {
 
     function hide(alert){
       setTimeout(() => {alert.classList.remove(classNames.booking.showAlert);}, 1000);
+    }
+  }
+
+  updateSlider(){
+    const hoursSlider = this.dom.wrapper.querySelector(select.widgets.hourPicker.rangeSlider);
+    const date = this.datePicker.value;
+    let gradient = '';
+    let colorStart = 0;
+    let colorEnd = 0;
+    console.log(`booked for ${this.datePicker.value}`, this.booked[this.datePicker.value]);
+    for (let hourBlock = settings.hours.open; hourBlock < settings.hours.close; hourBlock += settings.hours.step){
+      if(this.booked[date].hasOwnProperty(hourBlock)){
+        const bookedTables = this.booked[date][hourBlock];
+        const color = chooseColor(settings.floorPlan.tableAmount - bookedTables.length);
+        colorEnd = Math.round((hourBlock + settings.hours.step - settings.hours.open)/(settings.hours.close - settings.hours.open) * 100);
+        if (colorStart == 0) {
+          gradient = gradient + `${color} ${colorEnd}%, `;
+        } else {
+          gradient = gradient + `${color} ${colorStart}% ${colorEnd}%, `;
+        }
+        colorStart = colorEnd;
+      }
+    }
+    gradient = gradient + `green ${colorStart}%`;
+    const customStyle = `linear-gradient(to right, ${gradient})`;
+    hoursSlider.style.background = customStyle;
+
+    function chooseColor(AmountOfFreeTables) {
+      let color = 'green';
+      if (AmountOfFreeTables === 0) {
+        color = 'red';
+      } else if (AmountOfFreeTables === 1) {
+        color = 'orange';
+      }
+      return color;
     }
   }
 
@@ -213,7 +251,8 @@ class Booking {
 
     this.updateDOM();
   }
-  updateDOM(){
+  updateDOM(updateSlider = true){
+    if (updateSlider) this.updateSlider();
     if (this.pickedTable) {
       this.dom.floorPlan.querySelector(select.booking.tablePicked)
         .classList.remove(classNames.booking.tablePicked);

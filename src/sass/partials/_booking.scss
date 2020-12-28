@@ -84,10 +84,11 @@
   }
 
   &__fill {
-    background: $color-success;
-    transition-timing-function: cubic-bezier(0, 1, 0, 1);
-    transition: width 100ms;
-    box-shadow: none;
+    // background: $color-success;
+    // transition-timing-function: cubic-bezier(0, 1, 0, 1);
+    // transition: width 100ms;
+    // box-shadow: none;
+    opacity: 0;
   }
 }
 

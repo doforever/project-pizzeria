@@ -37,6 +37,7 @@ export const select = {
       wrapper: '.hour-picker',
       input: 'input[type="range"]',
       output: '.output',
+      rangeSlider: '.rangeSlider',
     },
     carousel: {
       wrapper: '.main-carousel',
@@ -111,6 +112,7 @@ export const settings = {
   hours: {
     open: 12,
     close: 24,
+    step: 0.5,
   },
   amountWidget: {
     defaultValue: 1,
@@ -122,6 +124,9 @@ export const settings = {
   },
   cart: {
     defaultDeliveryFee: 20,
+  },
+  floorPlan: {
+    tableAmount: 3,
   },
   booking: {
     tableIdAttribute: 'data-table',
