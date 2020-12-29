@@ -37,11 +37,8 @@ class Booking {
     this.datePicker = new DatePicker(this.dom.datePicker);
     this.hourPicker = new HourPicker(this.dom.hourPicker);
 
-    this.dom.wrapper.addEventListener('updated', () => {
-      this.updateDOM();
-    });
-    this.dom.wrapper.addEventListener('hourUpdated', () => {
-      this.updateDOM(false);
+    this.dom.wrapper.addEventListener('updated', (event) => {
+      this.updateDOM(event.target);
     });
   }
   initActions(){
@@ -251,12 +248,18 @@ class Booking {
 
     this.updateDOM();
   }
-  updateDOM(updateSlider = true){
-    if (updateSlider) this.updateSlider();
-    if (this.pickedTable) {
-      this.dom.floorPlan.querySelector(select.booking.tablePicked)
-        .classList.remove(classNames.booking.tablePicked);
-      this.pickedTable = null;
+  updateDOM(triggerElement = null){
+    const isHourPicker = triggerElement && triggerElement.classList.contains(classNames.widgets.hourPicker);
+    const isAmountWidget = triggerElement && triggerElement.classList.contains(classNames.widgets.amountWidget);
+
+    if (!isHourPicker) this.updateSlider();
+
+    if (!isAmountWidget){
+      if (this.pickedTable) {
+        this.dom.floorPlan.querySelector(select.booking.tablePicked)
+          .classList.remove(classNames.booking.tablePicked);
+        this.pickedTable = null;
+      }
     }
     this.date = this.datePicker.value;
     this.hour = utils.hourToNumber(this.hourPicker.value);

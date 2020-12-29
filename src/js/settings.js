@@ -97,6 +97,10 @@ export const classNames = {
     alert: 'alert',
     showAlert: 'show',
   },
+  widgets: {
+    hourPicker: 'hour-picker',
+    amountWidget: 'widget-amount',
+  },
   nav: {
     active: 'active',
   },
