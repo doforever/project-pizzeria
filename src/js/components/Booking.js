@@ -118,11 +118,31 @@ class Booking {
       } else {
         this.pickedTable = null;
       }
+      this.updateHoursMax();
     } else {
       /* show anavailable message */
       this.showAlert(settings.booking.unavailableMess);
     }
   }
+
+  updateHoursMax(){
+    if (this.pickedTable) {
+      /* check max available hours */
+      let maxHour = settings.hours.close;
+      for (let hourBlock = this.hour; hourBlock < settings.hours.close; hourBlock += settings.hours.step){
+        if (this.booked[this.date][hourBlock] && this.booked[this.date][hourBlock].includes(this.pickedTable)){
+          maxHour = hourBlock;
+          break;
+        }
+      }
+      const availableTime = this.hour ? maxHour - this.hour: 0;
+      /* set max value for this.hoursAmount */
+      this.hoursAmount.maxValue =  availableTime < settings.amountWidget.defaultMax ? availableTime : settings.amountWidget.defaultMax;
+    } else {
+      this.hoursAmount.maxValue = settings.amountWidget.defaultMax;
+    }
+  }
+
   getData(){
 
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(this.datePicker.minDate);

@@ -4,9 +4,16 @@ import BaseWidget from './BaseWidget.js';
 class AmountWidget extends BaseWidget {
   constructor(element, step = settings.amountWidget.defaultStep) {
     super(element, settings.amountWidget.defaultValue);
+    this.correctMaxValue = settings.amountWidget.defaultMax;
     this.step = step;
     this.getElements(element);
     this.initActions();
+  }
+  set maxValue(value) {
+    this.correctMaxValue = value;
+    if (value < this.correctValue) {
+      this.value = this.correctMaxValue;
+    }
   }
   getElements() {
     this.dom.input = this.dom.wrapper.querySelector(select.widgets.amount.input);
@@ -15,8 +22,8 @@ class AmountWidget extends BaseWidget {
   }
   isValid(value) {
     return !isNaN(value)
-      && value <= settings.amountWidget.defaultMax
-      && value >= settings.amountWidget.defaultMin;
+      && value <= this.correctMaxValue
+      && value >= this.step;
   }
   renderValue() {
     this.dom.input.value = this.value;
