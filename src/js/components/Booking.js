@@ -80,7 +80,7 @@ class Booking {
     let gradient = '';
     let colorStart = 0;
     let colorEnd = 0;
-    console.log(`booked for ${this.datePicker.value}`, this.booked[this.datePicker.value]);
+    // console.log(`booked for ${this.datePicker.value}`, this.booked[this.datePicker.value]);
     for (let hourBlock = settings.hours.open; hourBlock < settings.hours.close; hourBlock += settings.hours.step){
       if(this.booked[date].hasOwnProperty(hourBlock)){
         const bookedTables = this.booked[date][hourBlock];
@@ -207,7 +207,7 @@ class Booking {
       if (typeof this.booked[date][hourBlock] == 'undefined'){
         this.booked[date][hourBlock] = [];
       }
-      this.booked[date][hourBlock].push(table);
+      if (table) this.booked[date][hourBlock].push(table);
     }
   }
 
