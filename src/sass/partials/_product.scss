@@ -1,9 +1,11 @@
+@use "sass:math";
+
 .product-list {
   padding: ($base-size * 3) 0;
 }
 
 .product {
-  margin: ($base-size / 2) 0;
+  margin: math.div($base-size, 2) 0;
   padding: ($base-size * 6) ($base-size * 4);
   background: $color-light;
   border-bottom: 1px solid lighten($color-dark, 70%);
@@ -115,7 +117,7 @@
     width: 30px;
     height: 30px;
     text-align: center;
-    margin: 0 ($base-size / 2);
+    margin: 0 math.div($base-size, 2);
     padding: 0;
   }
 

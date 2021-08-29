@@ -142,13 +142,13 @@
     a {
       text-decoration: none;
       color: $color-light;
+      font-size: 0px;
 
       &:hover {
         color: $color-danger;
       }
 
       i {
-        font-size: 0px;
         transition: $transition;
       }
     }
